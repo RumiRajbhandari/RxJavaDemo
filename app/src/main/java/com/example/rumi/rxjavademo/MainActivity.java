@@ -8,6 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 
 public class MainActivity extends AppCompatActivity {
@@ -113,6 +114,36 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        Observable.zip(integerObservable, integerObservable1, new BiFunction<Integer, Integer, String>() {
+            @Override
+            public String apply(Integer integer, Integer integer2) throws Exception {
+                return ""+integer+integer2;
+            }
+        }).subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String value) {
+                Log.e(TAG, "onNext: "+value );
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError: "+e );
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
 
 
 
